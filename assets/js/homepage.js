@@ -63,6 +63,9 @@ var displayRepos = function(repos, searchTerm) {
         var titleEl = document.createElement("span");
         titleEl.textContent = repoName;
 
+        // append to container
+        repoEl.appendChild(titleEl);
+
         // create a status element
         var statusEl = document.createElement("span");
         statusEl.classList = "flex-row align-center";
@@ -76,7 +79,7 @@ var displayRepos = function(repos, searchTerm) {
         }
 
         // append to container
-        repoEl.appendChild(titleEl);
+        repoEl.appendChild(statusEl);
     
         // append container to the dom
         repoContainerEl.appendChild(repoEl);
