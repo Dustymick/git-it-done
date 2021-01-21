@@ -3,6 +3,20 @@ var nameInputEl = document.querySelector("#username");
 var repoContainerEl = document.querySelector("#repos-container");
 var repoSearchTerm = document.querySelector("#repo-search-term");
 
+
+var formSubmitHandler = function(event) {
+  event.preventDefault();
+  // get value from input element
+  var username = nameInputEl.value.trim();
+
+  if (username) {
+    getUserRepos(username);
+    nameInputEl.value = "";
+  } else {
+    alert("Please enter a GitHub username");
+  }
+ };
+
 var getUserRepos = function(user) {
     // format the github api url
     var apiUrl = "https://api.github.com/users/" + user + "/repos";
@@ -23,19 +37,6 @@ var getUserRepos = function(user) {
     });
   };
 
-var formSubmitHandler = function(event) {
-    event.preventDefault();
-    // get value from input element
-    var username = nameInputEl.value.trim();
-
-    if (username) {
-      getUserRepos(username);
-      nameInputEl.value = "";
-    } else {
-      alert("Please enter a GitHub username");
-    }
-    
-  };
 
 var displayRepos = function(repos, searchTerm) {
     console.log(repos);
@@ -56,9 +57,9 @@ var displayRepos = function(repos, searchTerm) {
         var repoName = repos[i].owner.login + "/" + repos[i].name;
     
         // create a container for each repo
-        var repoEl = document.createElement("div");
+        var repoEl = document.createElement("a");
         repoEl.classList = "list-item flex-row justify-space-between align-center";
-    
+        repoEl.setAttribute("href", "./single-repo.html?=" + repoName);
         // create a span element to hold repository name
         var titleEl = document.createElement("span");
         titleEl.textContent = repoName;
